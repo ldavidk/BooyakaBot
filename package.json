@@ -1,0 +1,25 @@
+{
+  "name": "booyakabot",
+  "version": "1.0.0",
+  "description": "Discord bot for RIPTS",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldavidk/BooyakaBot.git"
+  },
+  "author": "ldavidk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ldavidk/BooyakaBot/issues"
+  },
+  "homepage": "https://github.com/ldavidk/BooyakaBot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
+    "node-opus": "^0.3.3"
+  }
+}
