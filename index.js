@@ -30,7 +30,7 @@ function scheduledBooyaka() {
 };
 
 // Schedule to call the booyaka function at 6:19 AM (and hopefully PM)
-cron.schedule('44 20 * * *', () => {
+cron.schedule('19 6,18 * * *', () => {
   console.log('It\'s 6:19');
   scheduledBooyaka();
 });
