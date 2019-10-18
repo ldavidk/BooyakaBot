@@ -6,4 +6,5 @@ Things to add:
 ›ASCII art
 ›ASCII art randomizer
 ›Voice Channel/Streaming capability
-›Profile Pic for the Bot
+
+NOTE: Regenerate and replace the token in the json when "switching platforms" (ie windows to linux)
