@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
 const config = require('./token.json');
+const cron = require('node-cron');
+const fs = require('fs');
+
 const client = new Discord.Client();
-var cron = require('node-cron');
-var fs = require('fs');
+
 
 client.once('ready', () => {
-  console.log('You are now logged in as ${client.user.tag}!');
+  console.log('BooyakaBot Online!');
 });
 
 // Typing "booyaka booyaka" will make the bot reply with the 619 ascii
@@ -21,18 +23,19 @@ version of the art gets sent
 For now/testing ill keep it a simple 6 1 9
 */
 
-/*// function to say "BOOYAKA BOOYAKA" in #spam
+// function to say "BOOYAKA BOOYAKA" in #spam
 function scheduledBooyaka() {
-  client.channels.get('spam').send('BOOYAKA BOOYAKA')
+  const channel = client.channels.get('634859447843422208')
+  channel.send('BOOYAKA BOOYAKA')
   console.log('Booyaka Delivered');
 };
 
 // Schedule to call the booyaka function at 6:19 AM (and hopefully PM)
-cron.schedule('19 6 * * *', () => {
+cron.schedule('58 18 * * *', () => {
   console.log('It\'s 6:19');
   scheduledBooyaka();
 });
-*/
+
 
 // Bot Login
-client.login(config.token);
+client.login(token.token);
