@@ -1,16 +1,18 @@
 const Discord = require('discord.js');
+const config = require('./token.json');
 const client = new Discord.Client();
 var cron = require('node-cron');
 var fs = require('fs');
 
-client.on('ready', () => {
+client.once('ready', () => {
   console.log('You are now logged in as ${client.user.tag}!');
 });
 
 // Typing "booyaka booyaka" will make the bot reply with the 619 ascii
-client.on('message', msg => {
-  if (msg.content === 'booyaka booyaka') {
-    msg.reply('6 1 9');
+client.on('message', message => {
+  if (message.content === 'booyaka booyaka') {
+    console.log('Did someone say booyaka?');
+    message.channel.send('6 1 9');
   }
 });
 /*
@@ -19,7 +21,7 @@ version of the art gets sent
 For now/testing ill keep it a simple 6 1 9
 */
 
-// function to say "BOOYAKA BOOYAKA" in #spam
+/*// function to say "BOOYAKA BOOYAKA" in #spam
 function scheduledBooyaka() {
   client.channels.get('spam').send('BOOYAKA BOOYAKA')
   console.log('Booyaka Delivered');
@@ -30,7 +32,7 @@ cron.schedule('19 6 * * *', () => {
   console.log('It\'s 6:19');
   scheduledBooyaka();
 });
+*/
 
 // Bot Login
-var key = fs.readFileSync('./private-dc-keys.txt', 'utf8');
-client.login(key);
+client.login(config.token);
