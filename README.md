@@ -6,3 +6,4 @@ Things to add:
 ›ASCII art
 ›ASCII art randomizer
 ›Voice Channel/Streaming capability
+›Profile Pic for the Bot
