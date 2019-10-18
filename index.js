@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const token = require('./token.json');
+const CID = require('./token.json');
 const cron = require('node-cron');
 
 const client = new Discord.Client();
@@ -23,17 +24,17 @@ For now/testing ill keep it a simple 6 1 9
 
 // function to say "BOOYAKA BOOYAKA" in #spam
 function scheduledBooyaka() {
-  const channel = client.channels.get('634859447843422208');
+  const channel = client.channels.get(CID.CID);
   channel.send('BOOYAKA BOOYAKA');
   console.log('Booyaka Delivered');
 };
 
 // Schedule to call the booyaka function at 6:19 AM (and hopefully PM)
-cron.schedule('19 6,18 * * *', () => {
+cron.schedule('44 20 * * *', () => {
   console.log('It\'s 6:19');
   scheduledBooyaka();
 });
 
 
 // Bot Login
-client.login('NjM0ODM3OTEyNjQ2ODQ0NDE3.XaoV5w.ibN2A7UCfPovb5iLWNxmmdDBbCM');
+client.login(token.token);
