@@ -13,6 +13,7 @@ bot.on('ready', async () => {
     bot.user.setActivity("The 2006 Royal Rumble", {
         type: "WATCHING"
     })
+    bot.user.setStatus("dnd")
 })
 
 // Load Commands
@@ -50,7 +51,8 @@ bot.on("message", async message => {
     }
 
     // Kill Command (Leave in here as a backup)    
-    if (content === `${prefix}kill`) {
+    if ((message.author.id === token.me) &&
+        (content === `${prefix}kill`)) {
         console.log('kill command issued')
         return bot.destroy()
     }
