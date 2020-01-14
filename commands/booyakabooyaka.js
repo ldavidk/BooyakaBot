@@ -5,10 +5,9 @@ const fontList = [
     'doom',
     'graffiti',
     'doh',
-    '3x5'
-    // 4: 'Alphabet',
-    // 5: 'alligator2',
-    // 6: 'banner'
+    '3x5',
+    'alligator2',
+    'banner'
 ]
 
 module.exports.run = async (bot, message) => {
@@ -16,6 +15,7 @@ module.exports.run = async (bot, message) => {
     if (rand) {
         ASCII.font('619', rand, async image => {
             console.log('Someone said the thing')
+            console.log('rand #: ' + rand)
             message.channel.send(image, {
                 code: 'md'
             })

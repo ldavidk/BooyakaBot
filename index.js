@@ -2,6 +2,8 @@ const Discord = require('discord.js')
 
 const fs = require('fs')
 
+const cron = require('node-cron')
+
 const config = require('./config.json')
 const token = require('./tokens.json')
 
@@ -40,9 +42,6 @@ bot.on("message", async message => {
     if (message.channel.type === "dm") return // If its a dm to the bot
 
     const prefix = config.prefix
-    // let messageArray = message.content.split(" ")
-    // let cmd = messageArray[0]
-    // let args = messageArray.slice(1)
     const content = message.content.toLowerCase()
 
     const cmd = bot.command.get(content)
@@ -56,6 +55,15 @@ bot.on("message", async message => {
         console.log('kill command issued')
         return bot.destroy()
     }
+})
+
+// Schedule Event
+//cron.schedule('12 15 * * *', () => {    
+cron.schedule('19 6,18 * * *', () => {    
+    console.log('It\'s 6:19')
+    channelString = token.CID.toString()
+    const outputChannel = bot.channels.get(channelString)
+    outputChannel.send('BOOYAKA BOOYAKA, SIX ONE NINE')
 })
 
 bot.login(token.token)
