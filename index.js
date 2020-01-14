@@ -1,40 +1,69 @@
-const Discord = require('discord.js');
-const token = require('./token.json');
-const CID = require('./token.json');
-const cron = require('node-cron');
+const Discord = require('discord.js')
 
-const client = new Discord.Client();
+const fs = require('fs')
 
-client.once('ready', () => {
-  console.log('BooyakaBot Online!');
-});
+const cron = require('node-cron')
 
-// Typing "booyaka booyaka" will make the bot reply with the 619 ascii
-client.on('message', message => {
-  if (message.content === 'booyaka booyaka') {
-    console.log('Did someone say booyaka?');
-    message.channel.send('6 1 9');
-  }
-});
-/*
-so my plan with the above is to eventually be able to randomize which
-version of the art gets sent
-For now/testing ill keep it a simple 6 1 9
-*/
+const config = require('./config.json')
+const token = require('./tokens.json')
 
-// function to say "BOOYAKA BOOYAKA" in #spam
-function scheduledBooyaka() {
-  const channel = client.channels.get(CID.CID);
-  channel.send('BOOYAKA BOOYAKA');
-  console.log('Booyaka Delivered');
-};
+const bot = new Discord.Client()
 
-// Schedule to call the booyaka function at 6:19 AM (and hopefully PM)
-cron.schedule('19 6,18 * * *', () => {
-  console.log('It\'s 6:19');
-  scheduledBooyaka();
-});
+// Bot Startup
+bot.on('ready', async () => {
+    console.log(`${bot.user.username} Online!`)
+    bot.user.setActivity("The 2006 Royal Rumble", {
+        type: "WATCHING"
+    })
+    bot.user.setStatus("dnd")
+})
 
+// Load Commands
+bot.command = new Discord.Collection()
+fs.readdir('./commands/', (err, files) => {
+    if (err) console.error(err)
+    let commandFiles = files.filter(f => f.split('.').pop() === 'js')
+    if (commandFiles.length <= 0) {
+        console.error('No Commands Found')
+        return
+    }
+    
+    console.log(`Loading ${commandFiles.length} commands...`)
+    commandFiles.forEach((f, index) => {
+        const props = require(`./commands/${f}`)
+        console.log(`${index + 1}: ${f} loaded!`)
+        bot.command.set(props.help.name, props)
+    })
+})
 
-// Bot Login
-client.login(token.token);
+// Message Event
+bot.on("message", async message => {
+    if (message.author.bot) return // If a bot sends the message
+    if (message.channel.type === "dm") return // If its a dm to the bot
+
+    const prefix = config.prefix
+    const content = message.content.toLowerCase()
+
+    const cmd = bot.command.get(content)
+    if (cmd) {
+        cmd.run(bot, message)
+    }
+
+    // Kill Command (Leave in here as a backup)    
+    if ((message.author.id === token.me) &&
+        (content === `${prefix}kill`)) {
+        console.log('kill command issued')
+        return bot.destroy()
+    }
+})
+
+// Schedule Event
+//cron.schedule('12 15 * * *', () => {    
+cron.schedule('19 6,18 * * *', () => {    
+    console.log('It\'s 6:19')
+    channelString = token.CID.toString()
+    const outputChannel = bot.channels.get(channelString)
+    outputChannel.send('BOOYAKA BOOYAKA, SIX ONE NINE')
+})
+
+bot.login(token.token)
